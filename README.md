@@ -13,7 +13,7 @@ For details and installation, please see the ![CO2meter](https://github.com/vfil
 
 - Make sure that homemonitor and homemonitor.service are executable.
 - Adjust the paths in homemonitor.service to point to your copy of the homemonitor executable and your data/log directory of choice.
-- Also adjust the local IP address to match your network. The one used here (192.168.179.41) is just an example!
+- Also adjust the local IP address to match your network. The one used here just happened to be the one assigned by my testing router!
 - Copy the service to `/etc/systemd/system/`. This requires root!
   `sudo cp homemonitor.service /etc/systemd/system/`
 - Start the service with `sudo systemctl start homemonitor.service`. Can be stopped with `sudo systemctl start homemonitor.service`.
