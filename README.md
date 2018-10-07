@@ -14,6 +14,6 @@ For details and installation, please see the ![CO2meter](https://github.com/vfil
 - Also adjust the local IP address to match your network. The one used here (192.168.179.41) is just an example!
 - Copy the service to `/etc/systemd/system/`. This requires root!
   `sudo cp homemonitor.servivce /etc/systemd/system/`
-- Start the service with `sudo systemctl start homemonitor.service`
-- To automatically start homemonitor after reboot, run `sudo systemctl enable homemonitor.service`
-- After changing the service (e.g. because the paths were wrong), it needs to be reload `sudo systemctl reload-daemon`
+- Start the service with `sudo systemctl start homemonitor.service`. Can be stopped with `sudo systemctl start homemonitor.service`.
+- To automatically start homemonitor after reboot, run `sudo systemctl enable homemonitor.service`.
+- After changing the service (e.g. because the paths were wrong), it needs to be reload `sudo systemctl reload-daemon`.
