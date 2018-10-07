@@ -20,7 +20,7 @@ import flask
 from flask import request, render_template, jsonify
 import pandas as pd
 
-import co2meter as co2
+import homemonitor.homemonitor as homemonitor
 
 _DEFAULT_PORT = '8008'
 _DEFAULT_INTERVAL = 30  # seconds
@@ -182,7 +182,7 @@ def chart_co2_temp(name=None, freq='24H'):
 
     # Make figure
     index = data.index.format()
-    co2 = list(pd.np.where(data.co2.isnull(), None, data.co2))
+    co2 = list(pd.np.where(data.homemonitor.isnull(), None, data.co2))
     temp = list(pd.np.where(data.temp.isnull(), None, data.temp))
 
     d_co2 = {'mode': 'lines+markers', 'type': 'scatter',
@@ -302,7 +302,7 @@ def read_co2_data():
     if mon is None:
         # Try to initialize
         try:
-            mon = co2.CO2monitor()
+            mon = homemonitor.CO2monitor()
             # Sleep. If we read from device before it is calibrated, we'll
             # get wrong values
             time.sleep(_INIT_TIME)
@@ -322,7 +322,7 @@ def monitoring_CO2(interval):
         # Request concentration and temperature
         vals = read_co2_data()
         if vals is None:
-            logging.info('[%s] monitor is not connected' % co2.now())
+            logging.info('[%s] monitor is not connected' % homemonitor.now())
         else:
             # Write to log and sleep
             logging.info('[%s] %d ppm, %.1f deg C' % tuple(vals))
