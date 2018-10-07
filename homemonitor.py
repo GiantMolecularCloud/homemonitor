@@ -420,5 +420,5 @@ def plot(data, plot_temp=False, ewma_halflife=30., **kwargs):
 #############################################################################
 
 def start_server():
-    from homemonitor.server import start_server as start
-    start()
+    from server import start_server
+    start_server()

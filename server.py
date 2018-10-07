@@ -20,13 +20,13 @@ import flask
 from flask import request, render_template, jsonify
 import pandas as pd
 
-import homemonitor.homemonitor as homemonitor
+import homemonitor
 
 _DEFAULT_PORT = '8008'
 _DEFAULT_INTERVAL = 30  # seconds
 _DEFAULT_NAME = 'home'
 _INIT_TIME = 30  # time to initialize and calibrate device
-_URL = 'https://github.com/vfilimonov/co2meter'
+_URL = 'https://github.com/GiantMolecularCloud/homemonitor'
 
 _COLORS = {'r': '#E81F2E', 'y': '#FAAF4C', 'g': '#7FB03F'}
 _IMG_G = '1324881/36358454-d707e2f4-150e-11e8-9bd1-b479e232f28f'
@@ -182,7 +182,7 @@ def chart_co2_temp(name=None, freq='24H'):
 
     # Make figure
     index = data.index.format()
-    co2 = list(pd.np.where(data.homemonitor.isnull(), None, data.co2))
+    co2 = list(pd.np.where(data.co2.isnull(), None, data.co2))
     temp = list(pd.np.where(data.temp.isnull(), None, data.temp))
 
     d_co2 = {'mode': 'lines+markers', 'type': 'scatter',
@@ -197,8 +197,8 @@ def chart_co2_temp(name=None, freq='24H'):
                   'y': data['co2'].min(),
                   'xref': 'x1',
                   'yref': 'y1',
-                  'text': str(data['co2'].min()),
-                  'hovertext': 'minimum\nCO2: '+str(data['co2'].min())+'\ndate: '+str(data['co2'].idxmin()),
+                  'text': str(int(data['co2'].min())),
+                  'hovertext': 'minimum\nCO2: '+str(int(data['co2'].min()))+'\ndate: '+str(data['co2'].idxmin()),
                   'showarrow': True,
                   'arrowhead': 1,
                   'ax': 0,
@@ -208,8 +208,8 @@ def chart_co2_temp(name=None, freq='24H'):
                   'y': data['co2'].max(),
                   'xref': 'x1',
                   'yref': 'y1',
-                  'text': str(data['co2'].max()),
-                  'hovertext': 'maximum\nCO2: '+str(data['co2'].max())+'\ndate: '+str(data['co2'].idxmax()),
+                  'text': str(int(data['co2'].max())),
+                  'hovertext': 'maximum\nCO2: '+str(int(data['co2'].max()))+'\ndate: '+str(data['co2'].idxmax()),
                   'showarrow': True,
                   'arrowhead': 1,
                   'ax': 0,

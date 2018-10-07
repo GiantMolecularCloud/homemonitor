@@ -3,7 +3,7 @@ Description=Home monitoring service
 After=network.target
 
 [Service]
-ExecStart=/home/pi/homemonitor/server/homemonitor -H 192.168.179.41 -P 8000 -N home
+ExecStart=/home/pi/homemonitor/homemonitor_server -H 192.168.179.41 -P 8000 -N home
 WorkingDirectory=/home/pi/homemonitor/
 Restart=always
 User=root

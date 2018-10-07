@@ -7,18 +7,20 @@
     /* CSS to go here */
     .centered{
           margin: auto;
-          width: 480px;
+          width: 600px;
+          max-width: 1200px;
           padding: 5px 30px;
      }
    </style>
 </head>
+
 <body>
 <div class="centered">
-  <h1 align="center">Home monitoring server</h1>
+  <h1 align="left">Home monitoring server</h1>
   {{ status|safe }}
   <div>
   <div style="position: relative; float: left;">
-    <img src="https://user-images.githubusercontent.com/{{ image }}.jpg">
+    <img src="https://user-images.githubusercontent.com/{{ image }}.jpg" height="174" width="192">
   </div>
   <div>
     <font size="+2">
@@ -27,9 +29,11 @@
       <br>Temperature: {{ temp }}&#8451;
       <br>further temperature and humidity sensors will be added soon
     </font>
+  </div>
+  <div>
   <br><br><a href="/log">Data log</a>
   (<a href="/log.csv">csv</a>,&nbsp;<a href="/log.json">json</a>)
-  <br><a href="/dashboard">Dashboard</a>
+  <br><a href="/dashboard">Time series and statistics</a>
   </div>
   </div>
   <br>Developed by Vladimir Filimonov <a href="https://github.com/vfilimonov/co2meter">https://github.com/vfilimonov/co2meter</a>
