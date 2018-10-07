@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>CO2 monitor</title>
+  <title>Homemonitor</title>
   <meta charset="utf-8">
   <style>
     /* CSS to go here */
@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="centered">
-  <h1 align="center">CO2 monitoring server</h1>
+  <h1 align="center">Home monitoring server</h1>
   {{ status|safe }}
   <div>
   <div style="position: relative; float: left;">
@@ -25,13 +25,15 @@
       {{ timestamp }}
       <br>CO2 concentration: <font color="{{ color }}">{{ co2 }} ppm</font>
       <br>Temperature: {{ temp }}&#8451;
+      <br>further temperature and humidity sensors will be added soon
     </font>
   <br><br><a href="/log">Data log</a>
   (<a href="/log.csv">csv</a>,&nbsp;<a href="/log.json">json</a>)
   <br><a href="/dashboard">Dashboard</a>
   </div>
   </div>
-  <br>Author: Vladimir Filimonov<br>GitHub: <a href="{{ url }}">{{ url }}</a>
+  <br>Developed by Vladimir Filimonov <a href="https://github.com/vfilimonov/co2meter">https://github.com/vfilimonov/co2meter</a>
+  <br>Modified by N. Krieger <a href="https://github.com/GiantMolecularCloud/homemonitor">https://github.com/GiantMolecularCloud/homemonitor</a>
 </div>
 </body>
 </html>

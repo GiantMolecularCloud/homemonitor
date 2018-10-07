@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=/home/pi/homemonitor/server/homemonitor -H 192.168.179.41 -P 8000 -N home
-WorkingDirectory=/home/pi/homemonitor/data
+WorkingDirectory=/home/pi/homemonitor/
 Restart=always
 User=root
 
