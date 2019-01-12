@@ -8,6 +8,19 @@
 
   <style>
     /* CSS to go here */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .imgbox {
+      display: grid;
+      height: 100%;
+    }
+    .center-fit {
+      max-width: 100%;
+      max-height: 100vh;
+      margin: auto;
+    }
     select {
       display: inline-block;
       width: 200px;
@@ -37,7 +50,11 @@
   </script>
 </head>
 <body>
+<div align="left">
+
   <h1>Home Monitor Statistics</h1>
+
+  <h2>interactive plot</h2>
   <div id="controls">
     measurement:
     <select id="select-name" onchange="updateChart()">
@@ -66,9 +83,30 @@
     setInterval(function(){ updateChart(); }, 3000);
   </script>
 
+  <!-- the following needs to be adjusted to switch to the selected measurement name using {{name}} -->
+  <div style="margin-top:1cm;">
+      <h2>24h evolution</h2>
+      <div class="imgbox">
+        <img class="center-fit" src="{{ image_24h }}">
+      </div>
+  </div>
+
+  <div style="margin-top:1cm;">
+      <h2>Temperature - CO2 correlation</h2>
+      <div class="imgbox">
+        <img class="center-fit" src="{{ image_corr }}">
+      </div>
+  </div>
+
+  <div style="margin-top:1cm;">
+      Generate new statistics plots (may take a while; not functional at the moment).
+  </div>
+
   <div style="margin-top:1cm;">
       back to <a href="/index">overview</a>
   </div>
+
+</div>
 
 </body>
 </html>

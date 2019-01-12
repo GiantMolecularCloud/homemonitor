@@ -21,6 +21,7 @@ from flask import request, render_template, jsonify
 import pandas as pd
 
 import homemonitor
+import plot
 
 _DEFAULT_PORT = '8008'
 _DEFAULT_INTERVAL = 30  # seconds
@@ -264,7 +265,9 @@ def dashboard_plotly():
     files = [os.path.splitext(os.path.basename(_))[0] for _ in files]
     # And find selected for jinja template
     files = [(_, _ == _name) for _ in files]
-    return render_template('dashboard.html', files=files)
+    image_24h  = os.path.join('static','home.24h.svg')
+    image_corr = os.path.join('static','home.hist.svg')
+    return render_template('dashboard.html', files=files, image_24h=image_24h, image_corr=image_corr)
 
 
 #############################################################################
@@ -330,7 +333,6 @@ def monitoring_CO2(interval):
         # Sleep for the next call
         time.sleep(interval)
 
-
 #############################################################################
 def start_monitor(interval=_DEFAULT_INTERVAL):
     """ Start CO2 monitoring in a thread """
@@ -342,6 +344,28 @@ def start_monitor(interval=_DEFAULT_INTERVAL):
     t.start()
     return t
 
+#############################################################################
+# Plotting routines
+#############################################################################
+
+def plotting_stats():
+    """ Thread for plotting """
+    while _plotting:
+        logging.info('Generating plots ...')
+        plot.generate_plots()            # function to be written in plots.py
+        logging.info('Finished generating plots.')
+        time.sleep(86400)           # render figures every 8h
+
+#############################################################################
+def start_plots():
+    """ Start statistics plotting thread """
+    logging.basicConfig(level=logging.INFO)
+
+    global _plotting
+    _plotting = True
+    t = threading.Thread(target=plotting_stats, args=())
+    t.start()
+    return t
 
 #############################################################################
 # Server routines
@@ -375,6 +399,9 @@ def start_server():
     parser.add_option("-m", "--nomonitoring",
                       help="No live monitoring (only flask server)",
                       action="store_true", dest="no_monitoring")
+    parser.add_option("-p", "--noplotting",
+                      help="No daily statistics plotting",
+                      action="store_true", dest="no_plotting")
     parser.add_option("-s", "--noserver",
                       help="No server (only monitoring to file)",
                       action="store_true", dest="no_server")
@@ -391,6 +418,10 @@ def start_server():
     # Start monitoring
     if not options.no_monitoring:
         start_monitor(interval=int(options.interval))
+
+    # Start plotting
+    if not options.no_plotting:
+        start_plots()
 
     # Start server
     if not options.no_server:
