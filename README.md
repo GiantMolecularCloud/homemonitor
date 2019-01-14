@@ -18,6 +18,7 @@ For details and installation, please see the ![CO2meter](https://github.com/vfil
   `sudo cp homemonitor.service /etc/systemd/system/`
 - Start the service with `sudo systemctl start homemonitor.service`. It can be stopped with `sudo systemctl stop homemonitor.service`.
 - To automatically start homemonitor after reboot, run `sudo systemctl enable homemonitor.service`.
-- After changing the service (e.g. because the paths were wrong), it needs to be restarted: `sudo systemctl restart homemonitor.service`
+- Changing the service (the file in `/etc/systemd/system/`) requires a reload: `sudo systemctl daemon-reload`
+- A service can be restarted, e.g. to reload a now version of server.py by `sudo systemctl restart homemonitor.service`
 - The log file (stdout, stderr)  is accessible through `sudo journalctl -u homemonitor`
 
