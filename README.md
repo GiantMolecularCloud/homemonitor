@@ -6,6 +6,10 @@ This is a slightly adjusted version of ![CO2meter](https://github.com/vfilimonov
 
 For details and installation, please see the ![CO2meter](https://github.com/vfilimonov/co2meter) page.
 
+## Requirements
+- libusb, hidapi; see ![CO2meter](https://github.com/vfilimonov/co2meter) for installation details; if problems occur check the issue there
+- python packages: pandas, numpy, flask, matplotlib
+- If homemonitor should run automatically as a service (see below), these python packages must be installed for the root user. By default services run under root, so user installations will cause an error "cannot import matplotlib". Install it for root with `sudo -H pip3 install matplotlib`
 
 ## setting up a systemd service
 
